@@ -8,6 +8,7 @@ const roleRoutes = [
     { path: "/map", roles: ["bronze", "silver", "gold", "admin"] },
     { path: "/dashboard", roles: ["bronze", "silver", "gold", "admin"] },
     { path: "/news", roles: ["bronze", "silver", "gold", "admin"] },
+    { path: "/alerts", roles: ["bronze", "silver", "gold", "admin"] },
     { path: "/reports", roles: ["bronze", "silver", "gold", "admin"] },
     { path: "/markets", roles: ["bronze", "silver", "gold", "admin"] },
     { path: "/stocks", roles: ["bronze", "silver", "gold", "admin"] },
