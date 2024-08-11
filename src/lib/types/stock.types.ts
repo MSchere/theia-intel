@@ -1,3 +1,13 @@
+import { z } from "zod";
+import {
+    TimeSeries5MinResponseSchema,
+    TimeSeriesDailyMetaSchema,
+    TimeSeriesDailyResponseSchema,
+    TimeSeriesDataSchema,
+    TimeSeriesMonthlyResponseSchema,
+    TimeSeriesSchema,
+    TimeSeriesWeeklyResponseSchema,
+} from "../schemas/api.schemas";
 // Example Alpha Vantage API response:
 // {
 //     "Meta Data": {
@@ -25,67 +35,41 @@
 //         },
 // ...
 
-export type StockMeta = {
-  "1. Information": string;
-  "2. Symbol": string;
-  "3. Last Refreshed": string;
-  "4. Interval": string;
-  "5. Output Size": string;
-  "6. Time Zone": string;
-};
+export type TimeSeriesMeta = z.infer<typeof TimeSeriesDailyMetaSchema>;
 
-export type StockTimeSeries = {
-  [key: string]: {
-    "1. open": string;
-    "2. high": string;
-    "3. low": string;
-    "4. close": string;
-    "5. volume": string;
-  };
-};
+export type TimeSeriesData = z.infer<typeof TimeSeriesDataSchema>;
 
-export interface StockTimeSeriesResponse {
-  "Meta Data": StockMeta;
+export type TimeSeries = z.infer<typeof TimeSeriesSchema>;
+
+export enum Interval {
+    ONE_MIN = "1min",
+    FIVE_MIN = "5min",
+    FIFTEEN_MIN = "15min",
+    THIRTY_MIN = "30min",
+    SIXTY_MIN = "60min",
+    DAILY = "daily",
+    WEEKLY = "weekly",
+    MONTHLY = "monthly",
 }
 
-export enum StockInterval {
-  ONE_MIN = "1min",
-  FIVE_MIN = "5min",
-  FIFTEEN_MIN = "15min",
-  THIRTY_MIN = "30min",
-  SIXTY_MIN = "60min",
-  DAILY = "daily",
-  WEEKLY = "weekly",
-  MONTHLY = "monthly",
+export enum TimeSeriesFunction {
+    TIME_SERIES_INTRADAY = "TIME_SERIES_INTRADAY",
+    TIME_SERIES_DAILY = "TIME_SERIES_DAILY",
+    TIME_SERIES_WEEKLY = "TIME_SERIES_WEEKLY",
+    TIME_SERIES_MONTHLY = "TIME_SERIES_MONTHLY",
 }
 
-export enum StockFunction {
-  TIME_SERIES_INTRADAY = "TIME_SERIES_INTRADAY",
-  TIME_SERIES_DAILY = "TIME_SERIES_DAILY",
-  TIME_SERIES_WEEKLY = "TIME_SERIES_WEEKLY",
-  TIME_SERIES_MONTHLY = "TIME_SERIES_MONTHLY",
-}
+export type TimeSeries5MinResponse = z.infer<typeof TimeSeries5MinResponseSchema>;
 
-export interface StockTimeSeries5MinResponse extends StockTimeSeriesResponse {
-  "Time Series (5min)": StockTimeSeries;
-}
+export type TimeSeriesDailyResponse = z.infer<typeof TimeSeriesDailyResponseSchema>;
 
-export interface StockTimeSeriesDailyResponse extends StockTimeSeriesResponse {
-  "Time Series (Daily)": StockTimeSeries;
-}
+export type TimeSeriesWeeklyResponse = z.infer<typeof TimeSeriesWeeklyResponseSchema>;
 
-export interface StockTimeSeriesWeeklyResponse extends StockTimeSeriesResponse {
-  "Weekly Time Series": StockTimeSeries;
-}
+export type TimeSeriesMonthlyResponse = z.infer<typeof TimeSeriesMonthlyResponseSchema>;
 
-export interface StockTimeSeriesMonthlyResponse
-  extends StockTimeSeriesResponse {
-  "Monthly Time Series": StockTimeSeries;
-}
-
-export type StockDataMap = {
-  [StockFunction.TIME_SERIES_INTRADAY]: StockTimeSeries5MinResponse;
-  [StockFunction.TIME_SERIES_DAILY]: StockTimeSeriesDailyResponse;
-  [StockFunction.TIME_SERIES_WEEKLY]: StockTimeSeriesWeeklyResponse;
-  [StockFunction.TIME_SERIES_MONTHLY]: StockTimeSeriesMonthlyResponse;
+export type TimeSeriesDataMap = {
+    [TimeSeriesFunction.TIME_SERIES_INTRADAY]: TimeSeries5MinResponse;
+    [TimeSeriesFunction.TIME_SERIES_DAILY]: TimeSeriesDailyResponse;
+    [TimeSeriesFunction.TIME_SERIES_WEEKLY]: TimeSeriesWeeklyResponse;
+    [TimeSeriesFunction.TIME_SERIES_MONTHLY]: TimeSeriesMonthlyResponse;
 };

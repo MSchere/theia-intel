@@ -1,60 +1,63 @@
 import { z } from "zod";
-import {
-  StockFunction,
-  StockMeta,
-  StockTimeSeries,
-  StockTimeSeries5MinResponse,
-  StockTimeSeriesDailyResponse,
-  StockTimeSeriesMonthlyResponse,
-  StockTimeSeriesWeeklyResponse,
-} from "../types/stock.types";
+import { TimeSeriesFunction } from "../types/stock.types";
 
-export const StockMetaSchema: z.ZodSchema<StockMeta> = z.object({
-  "1. Information": z.string(),
-  "2. Symbol": z.string(),
-  "3. Last Refreshed": z.string(),
-  "4. Interval": z.string(),
-  "5. Output Size": z.string(),
-  "6. Time Zone": z.string(),
+export const TimeSeriesIntraDayMetaSchema = z.object({
+    "1. Information": z.string(),
+    "2. Symbol": z.string(),
+    "3. Last Refreshed": z.string(),
+    "4. Interval": z.string(),
+    "5. Output Size": z.string(),
+    "6. Time Zone": z.string().optional(),
 });
 
-export const StockTimeSeriesSchema: z.ZodSchema<StockTimeSeries> = z.record(
-  z.object({
+export const TimeSeriesDailyMetaSchema = z.object({
+    "1. Information": z.string(),
+    "2. Symbol": z.string(),
+    "3. Last Refreshed": z.string(),
+    "4. Output Size": z.string(),
+    "5. Time Zone": z.string(),
+});
+
+export const TimeSeriesMetaSchema = z.object({
+    "1. Information": z.string(),
+    "2. Symbol": z.string(),
+    "3. Last Refreshed": z.string(),
+    "4. Time Zone": z.string(),
+});
+
+export const TimeSeriesDataSchema = z.object({
     "1. open": z.string(),
     "2. high": z.string(),
     "3. low": z.string(),
     "4. close": z.string(),
     "5. volume": z.string(),
-  }),
-);
+});
 
-export const StockTimeSeries5MinResponseSchema: z.ZodSchema<StockTimeSeries5MinResponse> =
-  z.object({
-    "Meta Data": StockMetaSchema,
-    "Time Series (5min)": StockTimeSeriesSchema,
-  });
+export const TimeSeriesSchema = z.record(TimeSeriesDataSchema);
 
-export const StockTimeSeriesDailyResponseSchema: z.ZodSchema<StockTimeSeriesDailyResponse> =
-  z.object({
-    "Meta Data": StockMetaSchema,
-    "Time Series (Daily)": StockTimeSeriesSchema,
-  });
+export const TimeSeries5MinResponseSchema = z.object({
+    "Meta Data": TimeSeriesIntraDayMetaSchema,
+    "Time Series (5min)": TimeSeriesSchema,
+});
 
-export const StockTimeSeriesWeeklyResponseSchema: z.ZodSchema<StockTimeSeriesWeeklyResponse> =
-  z.object({
-    "Meta Data": StockMetaSchema,
-    "Weekly Time Series": StockTimeSeriesSchema,
-  });
+export const TimeSeriesDailyResponseSchema = z.object({
+    "Meta Data": TimeSeriesDailyMetaSchema,
+    "Time Series (Daily)": TimeSeriesSchema,
+});
 
-export const StockTimeSeriesMonthlyResponseSchema: z.ZodSchema<StockTimeSeriesMonthlyResponse> =
-  z.object({
-    "Meta Data": StockMetaSchema,
-    "Monthly Time Series": StockTimeSeriesSchema,
-  });
+export const TimeSeriesWeeklyResponseSchema = z.object({
+    "Meta Data": TimeSeriesMetaSchema,
+    "Weekly Time Series": TimeSeriesSchema,
+});
+
+export const TimeSeriesMonthlyResponseSchema = z.object({
+    "Meta Data": TimeSeriesMetaSchema,
+    "Monthly Time Series": TimeSeriesSchema,
+});
 
 export const StockSchemaMap = {
-  [StockFunction.TIME_SERIES_INTRADAY]: StockTimeSeries5MinResponseSchema,
-  [StockFunction.TIME_SERIES_DAILY]: StockTimeSeriesDailyResponseSchema,
-  [StockFunction.TIME_SERIES_WEEKLY]: StockTimeSeriesWeeklyResponseSchema,
-  [StockFunction.TIME_SERIES_MONTHLY]: StockTimeSeriesMonthlyResponseSchema,
+    [TimeSeriesFunction.TIME_SERIES_INTRADAY]: TimeSeries5MinResponseSchema,
+    [TimeSeriesFunction.TIME_SERIES_DAILY]: TimeSeriesDailyResponseSchema,
+    [TimeSeriesFunction.TIME_SERIES_WEEKLY]: TimeSeriesWeeklyResponseSchema,
+    [TimeSeriesFunction.TIME_SERIES_MONTHLY]: TimeSeriesMonthlyResponseSchema,
 };

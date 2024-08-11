@@ -1,5 +1,5 @@
-import { Card } from "$src/components/ui/card";
+import Stocks from "$src/components/Pages/Stocks";
 
-export default function MapPage() {
-    return <Card className="flex h-full w-full items-center justify-center">Welcome to the Stocks page!</Card>;
+export default function StocksPage() {
+    return <Stocks />;
 }

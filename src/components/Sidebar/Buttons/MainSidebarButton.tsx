@@ -13,7 +13,7 @@ type Props = {
 export default function MainSidebarButton({ title, route, active, children: icon, onClick }: Props) {
     return (
         <Link href={route}>
-            <button className={`sidebar-btn ${active ? "brightness-200 text-primary" : ""}`} onClick={onClick}>
+            <button className={`sidebar-btn ${active ? "bg-muted text-primary" : ""}`} onClick={onClick}>
                 {icon}
                 {title}
             </button>

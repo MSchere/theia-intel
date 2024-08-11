@@ -1,11 +1,5 @@
-import { Card, CardHeader, CardTitle } from "$src/components/ui/card";
+import Markets from "$src/components/Pages/Markets";
 
-export default function MarketsPage() {
-  return (
-    <Card className="flex h-full w-full items-center justify-center">
-      <CardHeader>
-        <CardTitle>Global Markets</CardTitle>
-      </CardHeader>
-    </Card>
-  );
+export default async function MarketsPage(){
+    return <Markets  />
 }
