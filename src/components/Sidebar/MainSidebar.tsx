@@ -46,7 +46,11 @@ export default function MainSidebar() {
                         <MainSidebarButton route="/markets" title="Global Markets" active={currentRoute === "markets"}>
                             <Globe className="h-6 w-6" />
                         </MainSidebarButton>
-                        <MainSidebarButton route="/stocks" title="Defense Stocks" active={currentRoute === "stocks"}>
+                        <MainSidebarButton
+                            route="/contractors"
+                            title="Contractors"
+                            active={currentRoute === "contractors"}
+                        >
                             <BarChart className="h-6 w-6" />
                         </MainSidebarButton>
                     </div>

@@ -11,7 +11,7 @@ const roleRoutes = [
     { path: "/alerts", roles: ["bronze", "silver", "gold", "admin"] },
     { path: "/reports", roles: ["bronze", "silver", "gold", "admin"] },
     { path: "/markets", roles: ["bronze", "silver", "gold", "admin"] },
-    { path: "/stocks", roles: ["bronze", "silver", "gold", "admin"] },
+    { path: "/contractors", roles: ["bronze", "silver", "gold", "admin"] },
 ];
 
 export default withAuth(function middleware(req): NextResponse {
